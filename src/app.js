@@ -10,12 +10,15 @@ const authRouter = require('./routes/auth.route')
 
 
 app.use(cors({
+ origin:true,
  credentials:true
 }))
 
 app.use(express.json())
 
 app.use(cookieParser())
+
+
 
 
 app.use("/api/auth",authRouter)
