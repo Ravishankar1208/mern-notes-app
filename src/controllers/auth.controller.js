@@ -5,22 +5,41 @@ const jwt = require('jsonwebtoken')
 
 
 async function registerController(req,res){
-  const {email, username , password , bio} = req.body
 
-  const isUserAlreadyExists = await userModel.findOne({
-    $or:[
-      {username},
-      {email}
-    ]
+ const {email, username , password , bio} = req.body
+
+
+ if(!email || !username || !password){
+
+  return res.status(400).json({
+   message:"all fields required"
   })
 
-  if(isUserAlreadyExists){
-    return res.status(409).json({
-      message:isUserAlreadyExists.email === email?
-      "email already exists"
-      :"username already exists"
-    })
-  }
+ }
+
+
+ const isUserAlreadyExists = await userModel.findOne({
+  $or:[
+   {username:username},
+   {email:email}
+  ]
+ })
+
+
+ if(isUserAlreadyExists){
+
+  return res.status(409).json({
+
+   message:
+   isUserAlreadyExists.email === email.toLowerCase()
+   ?
+   "email already exists"
+   :
+   "username already exists"
+
+  })
+
+ }
 
   const hash = crypto.createHash('sha256').update(password).digest('hex')
 
