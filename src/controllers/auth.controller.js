@@ -65,14 +65,21 @@ if(isUserAlreadyExists){
 
 })
 
-await sendEmail(email,otp)
+try{
+
+ await sendEmail(email,otp)
+
+}
+catch(error){
+
+ console.log("EMAIL ERROR",error.message)
+
+}
 
 
- 
+res.status(201).json({
 
-  res.status(201).json({
-
- message:"OTP sent successfully please verify your email",
+ message:"Account created successfully",
 
  email:user.email
 
