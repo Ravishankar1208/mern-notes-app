@@ -67,7 +67,7 @@ if(isUserAlreadyExists){
 
 try{
 
- await sendEmail(email,otp)
+ //await sendEmail(email,otp)
 
 }
 catch(error){
@@ -84,6 +84,9 @@ res.status(201).json({
  email:user.email
 
 })
+
+
+
 }
 
 
