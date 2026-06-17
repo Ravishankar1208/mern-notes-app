@@ -19,14 +19,19 @@ async function registerController(req,res){
 
 
  const isUserAlreadyExists = await userModel.findOne({
-  $or:[
-   {username:username},
-   {email:email}
-  ]
- })
+ $or:[
+  {username:username},
+  {email:email}
+ ]
+})
 
 
- if(isUserAlreadyExists){
+console.log("REGISTER BODY => ", req.body)
+
+console.log("FOUND USER => ", isUserAlreadyExists)
+
+
+if(isUserAlreadyExists){
 
   return res.status(409).json({
 
